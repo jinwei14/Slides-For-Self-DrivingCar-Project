@@ -52,6 +52,9 @@
 					<p>
 						<small>Created by <a href="https://jinwei14.github.io/Jalpc/">Jinwei Zhang</a> </small>
 					</p>
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit »S« on your keyboard).
+					</aside>
 				</section>
 
 				<!--page 2-->
@@ -114,62 +117,137 @@
 				</section>
 
 				<section>
-					<h2>LPS program</h2><p>sample.lps</p>
-					<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
-								import React, { useState } from 'react';
+					<h2>LPS program</h2><p>oneway.lps</p>
+					<pre class="stretch"><code class="hljs" data-trim data-line-numbers="2,3,7,9,23,24,29-34,38,47-57,95-98">
+% we assume the destination is reachable
+maxTime(200).
+cycleInterval(30).
 
-								function Example() {
-								  const [count, setCount] = useState(0);
+loadModule('../scripts/module.js').
 
-								  return (
-								    &lt;div&gt;
-								      &lt;p&gt;You clicked {count} times&lt;/p&gt;
-								      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
-								        Click me
-								      &lt;/button&gt;
-								    &lt;/div&gt;
-								  );
-								}
-								import React, { useState } from 'react';
+fluents([
+   stopped(VehicleName),
+   velocity(VehicleName, Speed),
+   moving(VehicleName),
+   coordinate(X, Y),
+   location(VehicleName, coordinate(X, Y), Direction),
+   trafficLight(coordinate(X, Y), Working_status, Color, FacingDirection),
+   street(StreetName, coordinate(X, Y), Width, Height, Number_of_lane),
+   goal(VehicleName,coordinate(X, Y))
+]).
 
-								function Example() {
-								  const [count, setCount] = useState(0);
+% events will reserved for traffic lights
+events ([
 
-								  return (
-								    &lt;div&gt;
-								      &lt;p&gt;You clicked {count} times&lt;/p&gt;
-								      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
-								        Click me
-								      &lt;/button&gt;
-								    &lt;/div&gt;
-								  );
-								}
+]).
+
+actions ([
+  step(Vehicle, NextPlace),
+  turn(Vehicle, NewHeading),
+  arrive(Vehicle)
+]).
+
+initially([
+  moving(car0),
+  location(car0, coordinate(150, 225), eastward),
+  goal(car0,coordinate(900, 225)),
+  velocity(car0, 5)
+]).
+
+
+
+street(mainStreet , coordinate(100, 200), 900, 50, 1).
+
+cloud(coordinate(140,100)).
+cloud(coordinate(250,90)).
+cloud(coordinate(300,120)).
+cloud(coordinate(640,100)).
+cloud(coordinate(750,90)).
+cloud(coordinate(800,120)).
+
+goal(Vehicle,coordinate(A, B)) from _ to T,
+location(Vehicle, coordinate(X, Y), Direction), A==X, B==Y,moving(Vehicle) at T ->
+  % testPrint(Vehicle+ ' we have arrived'),
+  arrive(Vehicle) at T.
+
+
+goal(Vehicle,coordinate(A, B)) from _ to T,
+location(Vehicle, coordinate(X, Y), Direction), moving(Vehicle) at T ->
+  % need to find the right direction here
+  % driving forward
+    drive(Vehicle) from T to _.
+
+drive(Vehicle) from T to T1 <-
+  location(Vehicle, coordinate(X, Y), Direction),
+  Direction == northward,
+  velocity(Vehicle, Num),
+  NewY = Y - Num,
+  NextPlace = coordinate(X, NewY),
+  step(Vehicle, NextPlace) from T1 to T2.
+
+drive(Vehicle) from T to T1 <-
+  location(Vehicle, coordinate(X, Y), Direction),
+  Direction == southward,
+  velocity(Vehicle, Num),
+  NewY = Y + Num,
+  NextPlace = coordinate(X, NewY),
+  step(Vehicle, NextPlace) from T1 to T2.
+
+drive(Vehicle) from T to T1 <-
+  location(Vehicle, coordinate(X, Y), Direction),
+  Direction == westward,
+  velocity(Vehicle, Num),
+  NewX = X-Num,
+  NextPlace = coordinate(NewX, Y),
+  step(Vehicle, NextPlace) from T1 to T2.
+
+drive(Vehicle) from T to T1 <-
+  location(Vehicle, coordinate(X, Y), Direction),
+  Direction == eastward,
+  velocity(Vehicle, Num),
+  NewX = X + Num,
+  NextPlace = coordinate(NewX, Y),
+  step(Vehicle, NextPlace) from T1 to T2.
+
+% on(coordinate(X,Y),Street) <-
+
+
+
+updates(step(Vehicle, NextPlace), location(Vehicle, OldPlace, Direction),  location(Vehicle, NextPlace, Direction)).
+updates(turn(Vehicle, NewHeading) , location(Vehicle, Place, OldHeading), location(Vehicle, Place, NewHeading)).
+terminates(arrive(Vehicle), moving(Vehicle)).
+initiates(arrive(Vehicle), stopped(Vehicle)).
+
 					</code></pre>
+				</section>
+				<section>
+					<h3>Login/Register</h3>
+					<video data-autoplay class="stretch" src="./videos/login.mov" type="video/mov"> </video>
 				</section>
 
 				<section>
 					<h3>One lane traffic road</h3>
-					<video class="stretch" src="./videos/roundabout.mp4" type="video/mp4"> </video>
+					<video data-autoplay class="stretch" src="./videos/oneway.mov" type="video/mov"> </video>
 				</section>
 
 				<section>
 					<h3>T-junction road</h3>
-					<video class="stretch" src="./videos/roundabout.mp4" type="video/mp4"> </video>
+					<video data-autoplay class="stretch" src="./videos/tjunction.mov" type="video/mov"> </video>
 				</section>
 
 				<section>
 					<h3>Cross junction road</h3>
-					<video class="stretch" src="./videos/roundabout.mp4" type="video/mp4"> </video>
+					<video data-autoplay class="stretch" src="./videos/crossjunction.mov" type="video/mov"> </video>
 				</section>
 
 				<section>
 					<h3>Roundabout</h3>
-						<video class="stretch" src="./videos/roundabout.mp4" type="video/mp4"> </video>
+						<video data-autoplay class="stretch" src="./videos/roundabout.mp4" type="video/mp4"> </video>
 				</section>
 
 				<section>
 					<h3>Overtaking</h3>
-					<video class="stretch" src="./videos/roundabout.mp4" type="video/mp4"> </video>
+					<video data-autoplay class="stretch" src="./videos/overtaking.mov" type="video/mov"> </video>
 				</section>
 
 				<section>
