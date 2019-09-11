@@ -178,7 +178,7 @@
 			// - null:   Media will only autoplay if data-autoplay is present
 			// - true:   All media will autoplay, regardless of individual setting
 			// - false:  No media will autoplay, regardless of individual setting
-			autoPlayMedia: null,
+			autoPlayMedia: true,
 
 			// Global override for preloading lazy-loaded iframes
 			// - null:   Iframes with data-src AND data-preload will be loaded when within
