@@ -52,9 +52,7 @@
 					<p>
 						<small>Created by <a href="https://jinwei14.github.io/Jalpc/">Jinwei Zhang</a> </small>
 					</p>
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit »S« on your keyboard).
-					</aside>
+
 				</section>
 
 				<!--page 2-->
@@ -65,6 +63,10 @@
 						<li class="fragment">Implementation</li>
 						<li class="fragment">Conclusion</li>
 					</ul>
+
+					<aside class="notes">
+						Background Implementation Conclusion
+					</aside>
 				</section>
 
 				<!--page 3-->
@@ -78,6 +80,7 @@
 						<li class="fragment">Technology Background</li>
 
 					</ul>
+
 				</section>
 
 				<!--page 4-->
@@ -89,6 +92,15 @@
 					<p style="font-size: 30px; text-align: left;">\(R\): stands for a set of reactive Rules.  It is in the form of \( ∀X[antecedent→∃Yconsequent].\) </p>
 					<p style="font-size: 30px; text-align: left;">\(L\): stands for logic programming.\(L=L_{int}∪L_{events}∪L_{aux}.\)  </p>
 					<p style="font-size: 30px; text-align: left;">\(D\): stands for domain theory \(D = D_{pre}∪D_{post}.\)  </p>
+
+					<aside class="notes">
+						R stands for a set of reactive Rules.  It is in the form of∀X[antecedent→∃Yconsequent].   The antecedent can also be interpreted as the goal of an agent
+						"Events include external events and an agent’s own internally generated ac-tions
+
+						It consists of (1)definition of intentional predi-cate. (2)composite event (3)auxiliary predicate (never change over time). L is the beliefs of an agent
+
+						D stands for domain theory D=Dpre ∪ Dpost.  It is the precondition and the post-condition of state transaction <- step()
+					</aside>
 				</section>
 
 				<!--page 5-->
@@ -100,7 +112,11 @@
 					<p style="font-size: 30px; text-align: left"> Logic:  LPS, LPS.js, LPS.cli(testing) </p>
 					<p style="font-size: 30px; text-align: left"> Front-end:  Boostrap, JavaScript, PIIX.js, </p>
 					<p style="font-size: 30px; text-align: left"> Back-end:  AWS, Express.js MongoDB</p>
+				<aside class="notes">
+					Trigonometric function used in the Roundabout
 
+					Technology stack is
+				</aside>
 				</section>
 
 
@@ -114,6 +130,12 @@
 
 						<li class="fragment" >System back end</li>
 					</ul>
+
+					<aside class="notes">
+						LPS program with traffic norms
+						System front end
+						System back end
+					</aside>
 				</section>
 
 				<section>
@@ -260,6 +282,19 @@ initiates(arrive(Vehicle), stopped(Vehicle)).
 						<li class="fragment">Future Work</li>
 
 					</ul>
+					<aside class="notes">
+						Evaluation:
+
+						Usability-
+
+						Efficiency-  average of 0.5 millisecond ofrequest time. 3.84 registration time
+						Re-usability- well defined class and API.
+						Testability -Cli testing file
+
+						Challenge Faced 1.Hard to dive deep into interpreter 2.Lacking of debugging tool and function 3. Latency of interpreter LPS.js
+
+						Future Work:1.APPLY JavaScript direct API 2.Shift the front-end to react.js 3.Modify the LPS program and push direct onto MongoDB cloud 4.Multi-threading LPS
+					</aside>
 				</section>
 
 
@@ -267,8 +302,8 @@ initiates(arrive(Vehicle), stopped(Vehicle)).
 				<section style="text-align: left;">
 					<h1>THE END</h1>
 					<p>
-						- <a href="https://slides.com">Try the visualiser online</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+						- <a href="https://github.com/jinwei14/LPS-visualisation">Try the visualiser online</a> <br>
+						- <a href="https://github.com/jinwei14/LPS-visualisation">Source code &amp; documentation</a>
 					</p>
 				</section>
 			</div>
